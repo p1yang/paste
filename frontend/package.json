@@ -1,0 +1,84 @@
+{
+  "name": "paste",
+  "version": "1.0.0",
+  "description": "Paste - A modern macOS clipboard manager",
+  "main": "build/main.js",
+  "author": "Paste Team",
+  "license": "MIT",
+  "scripts": {
+    "dev:renderer": "vite",
+    "dev:main": "tsc -p tsconfig.main.json --watch",
+    "build:renderer": "tsc && vite build",
+    "build:main": "tsc -p tsconfig.main.json",
+    "build": "npm run build:renderer && npm run build:main",
+    "start": "electron .",
+    "dev": "concurrently -k \"npm:dev:renderer\" \"npm:dev:main\"",
+    "pack": "electron-builder --dir",
+    "dist": "npm run build && electron-builder",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "axios": "^1.6.7",
+    "clsx": "^2.1.0",
+    "dayjs": "^1.11.10",
+    "electron-store": "^8.1.0",
+    "framer-motion": "^11.0.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.0",
+    "zustand": "^4.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.16",
+    "@types/react": "^18.2.52",
+    "@types/react-dom": "^18.2.18",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.17",
+    "concurrently": "^8.2.2",
+    "electron": "^28.2.0",
+    "electron-builder": "^24.9.1",
+    "postcss": "^8.4.33",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.12",
+    "vitest": "^1.2.2"
+  },
+  "build": {
+    "appId": "com.paste.app",
+    "productName": "Paste",
+    "asar": true,
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": ["arm64", "x64"]
+        },
+        {
+          "target": "zip",
+          "arch": ["arm64", "x64"]
+        }
+      ],
+      "icon": "public/icon.icns",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.plist"
+    },
+    "files": [
+      "build/**/*",
+      "public/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "../backend/bin",
+        "to": "bin",
+        "filter": ["**/*"]
+      }
+    ],
+    "directories": {
+      "output": "release"
+    }
+  }
+}
