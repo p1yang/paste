@@ -11,9 +11,9 @@ build: build-backend build-frontend
 build-backend:
 	@echo "Building backend..."
 	@mkdir -p $(BIN_DIR)
-	cd $(BACKEND_DIR) && CGO_ENABLED=1 GOOS=darwin GOARCH=arm64 go build -o bin/paste-backend cmd/main.go
+	cd $(BACKEND_DIR) && CGO_ENABLED=1 GOOS=darwin GOARCH=amd64 go build -o bin/paste-backend cmd/main.go
 	@if [ -f "$(BACKEND_DIR)/bin/paste-backend" ]; then \
-		echo "Backend built successfully (arm64)"; \
+		echo "Backend built successfully (amd64)"; \
 	else \
 		cd $(BACKEND_DIR) && CGO_ENABLED=1 go build -o bin/paste-backend cmd/main.go; \
 		echo "Backend built successfully (default arch)"; \

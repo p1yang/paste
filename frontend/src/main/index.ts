@@ -39,17 +39,17 @@ function startBackend(): void {
   let backendPath: string;
 
   if (isDev) {
-    backendPath = path.join(__dirname, '..', '..', '..', 'backend', 'bin', 'paste-backend');
+    backendPath = path.join(__dirname, '..', '..', 'backend', 'bin', 'paste-backend');
   } else {
     backendPath = path.join(process.resourcesPath, 'bin', 'paste-backend');
   }
 
-  const dataDir = path.join(app.getPath('userData'), 'data');
-  if (!fs.existsSync(dataDir)) {
-    fs.mkdirSync(dataDir, { recursive: true });
-  }
-
   try {
+    const dataDir = path.join(app.getPath('userData'), 'data');
+    if (!fs.existsSync(dataDir)) {
+      fs.mkdirSync(dataDir, { recursive: true });
+    }
+
     if (fs.existsSync(backendPath)) {
       backendProcess = spawn(backendPath, [
         '-port', String(API_PORT),

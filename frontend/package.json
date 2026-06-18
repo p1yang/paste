@@ -2,7 +2,7 @@
   "name": "paste",
   "version": "1.0.0",
   "description": "Paste - A modern macOS clipboard manager",
-  "main": "build/main.js",
+  "main": "build/index.js",
   "author": "Paste Team",
   "license": "MIT",
   "scripts": {
